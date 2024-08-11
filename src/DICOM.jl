@@ -32,10 +32,6 @@ end
 #  "1-n"
 #include("dcm_dict.jl")  # const dcm_dict = ...
 
-# Load external dicom dictionary
-my_dict_file = joinpath( pwd(), "dicts/external-dicom-dict.txt")
-dcm_dict_default = load_external_dcm_dict( my_dict_file)
-
 # Load external dicom dictionary in std tab text format
 # Reformat into DICOM.dcm_dict format
 # Curt Corum 8/11/2024
@@ -57,6 +53,10 @@ function load_external_dcm_dict( dcm_dict_file_path)
 	end	
 	return my_dcm_dict
 end
+
+# Load external dicom dictionary
+my_dict_file = joinpath( pwd(), "dicts/external-dicom-dict.txt")
+dcm_dict_default = load_external_dcm_dict( my_dict_file)
 
 # For convenience, dictionary to get hex tag from field name, e.g:
 # Julia> DICOM.fieldname_dict["Specific Character Set"]
