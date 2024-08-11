@@ -5016,4 +5016,4 @@ dcm_dict_default = Dict(
     (0xfffe, 0xe0dd) => [:SequenceDelimitationItem, "See Note", "1"],
 )
 
-dcm_dict = dicom_dict_default
+dcm_dict = dcm_dict_default
