@@ -57,7 +57,7 @@ end
 
 # Load external dicom dictionary
 my_dict_file = joinpath( pwd(), "dicts/external-dicom-dict.txt")
-dcm_dict_default = load_external_dcm_dict( my_dict_file)
+dcm_dict = load_external_dcm_dict( my_dict_file)
 
 # For convenience, dictionary to get hex tag from field name, e.g:
 # Julia> DICOM.fieldname_dict["Specific Character Set"]
