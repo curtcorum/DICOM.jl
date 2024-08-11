@@ -21,6 +21,7 @@ macro tag_str(s)
     DICOM.fieldname_dict[key]
 end
 
+using DelimitedFiles
 
 # Create dicom dictionary - used for reading/writing DICOM files
 # Keys are tuple containing hex Group and Element of DICOM entry
