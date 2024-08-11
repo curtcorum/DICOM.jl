@@ -37,38 +37,26 @@ ENV["USERNAME"]
 # ╔═╡ 33680691-25fe-4811-a088-374e1beae63a
 pwd()
 
-# ╔═╡ 6aac6ac2-1788-41df-85fa-4d0e8a392f17
-data_path = joinpath( homedir(), "src/DICOM.jl/dicts")
-
 # ╔═╡ effbbc5f-81db-4d43-81d9-5448b6357cf5
 now()
-
-# ╔═╡ 9226cc3a-5b98-4eb2-baa7-1d6cfddd7739
-#This is the dicom dictioonary with MR specifics for GE
-#my_dict_file = pick_file( data_path)
-my_dict_file = "/home/curt/src/DICOM.jl/dicts/gems/gems-dicom-dict.txt"
-
-# ╔═╡ b8f72b73-a0ec-42b0-99af-d02d5b8cd2fb
-my_raw_dict = readdlm(my_dict_file, '\t', String, '\n'; header=false, comments=true, comment_char='#');
 
 # ╔═╡ 1cffb689-518a-4ac1-8c89-aa6d14f70916
 # Reformat into DICOM.dcm_dict format
 begin
 	my_dcm_dict = Dict{Tuple{UInt16, UInt16}, Vector{Any}}()
+	my_dict_file = joinpath( pwd(), "dicts/external-dicom-dict.txt")
+	my_raw_dict = readdlm(my_dict_file, '\t', String, '\n'; header=false, comments=true, comment_char='#');
 	for row in axes( my_raw_dict, 1)
 		# ignore or skip "xx" for now?
 		dcm_tag_raw = string( parse( UInt32, replace( my_raw_dict[row, 1], '(' => "", ')' => "", ',' => "", 'x' => "f"), base=16), base=16, pad=8)
 		bytes_array = hex2bytes( dcm_tag_raw)
-		
 		dcm_tag_l = parse( UInt16, bytes2hex( bytes_array[3:4]), base=16)
 		dcm_tag_h = parse( UInt16, bytes2hex( bytes_array[1:2]), base=16)
 		dcm_tag = (dcm_tag_h, dcm_tag_l)
-		
 		vr =  my_raw_dict[row, 2]
 		name =  my_raw_dict[row, 3]
 		vm =  my_raw_dict[row, 4]
-
-		println( row, "\t", dcm_tag, "\t", vr, "\t", name, "\t", vm )
+		#println( row, "\t", dcm_tag, "\t", vr, "\t", name, "\t", vm )
 		my_dcm_dict[dcm_tag] = [Symbol( name), vr, vm]
 	end
 end
@@ -137,10 +125,7 @@ simshow( dcm_data_test.PixelData; γ=2)
 # ╠═29e1f787-c0f8-4d64-aef1-eaa5c69311d0
 # ╠═9ebb48fd-bf79-47a9-bbe2-7de11ea2e096
 # ╠═33680691-25fe-4811-a088-374e1beae63a
-# ╠═6aac6ac2-1788-41df-85fa-4d0e8a392f17
 # ╠═effbbc5f-81db-4d43-81d9-5448b6357cf5
-# ╠═9226cc3a-5b98-4eb2-baa7-1d6cfddd7739
-# ╠═b8f72b73-a0ec-42b0-99af-d02d5b8cd2fb
 # ╠═1cffb689-518a-4ac1-8c89-aa6d14f70916
 # ╠═74c5d6fd-3206-4901-b5ea-3e752fe84418
 # ╠═e22fbfcb-5f39-4e9a-8aed-a6f1b87b4f27
