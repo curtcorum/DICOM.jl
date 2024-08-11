@@ -12,10 +12,11 @@ begin
     import Pkg
     # activate a temporary environment
     Pkg.activate(mktempdir())
+	using NativeFileDialog, Dates, DelimitedFiles
     Pkg.add([
         Pkg.PackageSpec(path=local_DICOM),
     ])
-    using NativeFileDialog, Dates, DelimitedFiles, DICOM
+    using DICOM
 end
 
 # ╔═╡ 9828cbdb-09f0-4708-98a8-193f57c7cbe7

@@ -35,6 +35,8 @@ end
 # Load external dicom dictionary in std tab text format
 # Reformat into DICOM.dcm_dict format
 # Curt Corum 8/11/2024
+using DelimitedFiles
+
 function load_external_dcm_dict( dcm_dict_file_path)
 	my_dcm_dict = Dict{Tuple{UInt16, UInt16}, Vector{Any}}()
 	my_raw_dict = readdlm( dcm_dict_file_path, '\t', String, '\n'; header=false, comments=true, comment_char='#');
