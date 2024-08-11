@@ -1,5 +1,5 @@
 # GE Medical Systems DICOM Data Dictionary
-# Copyright © 2003 General Electric Company
+# Copyright Â© 2003 General Electric Company
 #
 # **CORRECTIONS/ADDITIONS**
 # Please report corrections and/or additions via the MATLAB forum of the 
@@ -2247,7 +2247,7 @@
 (0043,10A8)	DS	DualDriveParameters	3
 (0043,10B3)	DS	HoecCorrection		1-n
 (0043,10B4)	SS	MRFTG	1
-(0043,10B5) LO  LO      1-n
+(0043,10B5)	LO	LO	1-n
 (0043,10C0)	DS	RxDualDriveParameters	1-n
 (0045,0000)	UL	GEMSPrivateGroupLength_0045	1
 (0045,0010)	LO	GEMSPrivateGroupCreator_0045_10xx	1
