@@ -1,4 +1,4 @@
-dcm_dict_default = Dict(
+dcm_dict = Dict(
     (0x0002, 0x0000) => [:FileMetaInformationGroupLength, "UL", "1"],
     (0x0002, 0x0001) => [:FileMetaInformationVersion, "OB", "1"],
     (0x0002, 0x0002) => [:MediaStorageSOPClassUID, "UI", "1"],
@@ -5015,5 +5015,3 @@ dcm_dict_default = Dict(
     (0xfffe, 0xe00d) => [:ItemDelimitationItem, "See Note", "1"],
     (0xfffe, 0xe0dd) => [:SequenceDelimitationItem, "See Note", "1"],
 )
-
-dcm_dict = dcm_dict_default
