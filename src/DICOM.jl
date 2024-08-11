@@ -36,6 +36,28 @@ end
 my_dict_file = joinpath( pwd(), "dicts/external-dicom-dict.txt")
 dcm_dict_default = load_external_dcm_dict( my_dict_file)
 
+# Load external dicom dictionary in std tab text format
+# Reformat into DICOM.dcm_dict format
+# Curt Corum 8/11/2024
+function load_external_dcm_dict( dcm_dict_file_path)
+	my_dcm_dict = Dict{Tuple{UInt16, UInt16}, Vector{Any}}()
+	my_raw_dict = readdlm( dcm_dict_file_path, '\t', String, '\n'; header=false, comments=true, comment_char='#');
+	for row in axes( my_raw_dict, 1)
+		# ignore or skip "xx" for now?
+		dcm_tag_raw = string( parse( UInt32, replace( my_raw_dict[row, 1], '(' => "", ')' => "", ',' => "", 'x' => "f"), base=16), base=16, pad=8)
+		bytes_array = hex2bytes( dcm_tag_raw)
+		dcm_tag_l = parse( UInt16, bytes2hex( bytes_array[3:4]), base=16)
+		dcm_tag_h = parse( UInt16, bytes2hex( bytes_array[1:2]), base=16)
+		dcm_tag = (dcm_tag_h, dcm_tag_l)
+		vr =  my_raw_dict[row, 2]
+		name =  my_raw_dict[row, 3]
+		vm =  my_raw_dict[row, 4]
+		#println( row, "\t", dcm_tag, "\t", vr, "\t", name, "\t", vm )
+		my_dcm_dict[dcm_tag] = [Symbol( name), vr, vm]
+	end	
+	return my_dcm_dict
+end
+
 # For convenience, dictionary to get hex tag from field name, e.g:
 # Julia> DICOM.fieldname_dict["Specific Character Set"]
 # (0x0008, 0x0005)
@@ -722,28 +744,6 @@ function pixeldata_write(st, d, evr)
     else
         dcm_store(st, (0x7FE0, 0x0010), s -> write(s, d))
     end
-end
-
-# Load external dicom dictionary in std tab text format
-# Reformat into DICOM.dcm_dict format
-# Curt Corum 8/11/2024
-function load_external_dcm_dict( dcm_dict_file_path)
-	my_dcm_dict = Dict{Tuple{UInt16, UInt16}, Vector{Any}}()
-	my_raw_dict = readdlm( dcm_dict_file_path, '\t', String, '\n'; header=false, comments=true, comment_char='#');
-	for row in axes( my_raw_dict, 1)
-		# ignore or skip "xx" for now?
-		dcm_tag_raw = string( parse( UInt32, replace( my_raw_dict[row, 1], '(' => "", ')' => "", ',' => "", 'x' => "f"), base=16), base=16, pad=8)
-		bytes_array = hex2bytes( dcm_tag_raw)
-		dcm_tag_l = parse( UInt16, bytes2hex( bytes_array[3:4]), base=16)
-		dcm_tag_h = parse( UInt16, bytes2hex( bytes_array[1:2]), base=16)
-		dcm_tag = (dcm_tag_h, dcm_tag_l)
-		vr =  my_raw_dict[row, 2]
-		name =  my_raw_dict[row, 3]
-		vm =  my_raw_dict[row, 4]
-		#println( row, "\t", dcm_tag, "\t", vr, "\t", name, "\t", vm )
-		my_dcm_dict[dcm_tag] = [Symbol( name), vr, vm]
-	end	
-	return my_dcm_dict
 end
 
 end
