@@ -24,12 +24,10 @@
 # 08-06-2003  rebecca.hattle@med.ge.com    ~ Changed the Value 
 #                                  Representation value to SQ for Sequences 
 #                                  in Matlab
-# 03-28-2006   michael.figueira@med.ge.com ~ updated for MR private data and new standard elements
-#
-# 08-11-2024   has all multi VR fields replaced with leftmost VR, i.e. OW/OB => OW
+# 03-28-2006   michael.figueira@med.ge.com ~ updated for MR private data and new standard elements	
 #	
 # 
-# To parse the contents of this data dictionary in Matlab, execute: 
+# To parse the contents of this data dictionary in Matlab, execute:
 #
 # [group,element,VR,attributeName,VM] = textread('gems-dicom-dict.txt',...
 #                                      '(%4c,%4c)\t%s%s%s',...
@@ -137,12 +135,12 @@
 (0028,0040)	CS	ImageFormat	1
 (0028,0050)	LT	ManipulatedImage	1-n
 (0028,0060)	CS	CompressionCode	1
-(0028,0104)	US	SmallestValidPixelValue	1
-(0028,0105)	US	LargestValidPixelValue	1
+(0028,0104)	US/SS	SmallestValidPixelValue	1
+(0028,0105)	US/SS	LargestValidPixelValue	1
 (0028,0200)	US	ImageLocation	1
 (0028,1080)	CS	GrayScale	1
-(0028,1100)	US	GrayLookupTableDescriptor	3
-(0028,1200)	US	GrayLookupTableData	1-n
+(0028,1100)	US/SS	GrayLookupTableDescriptor	3
+(0028,1200)	US/SS	GrayLookupTableData	1-n
 (0028,4000)	LT	ImagePresentationComments	1-n
 (4000,0000)	UL	TextGroupLength	1
 (4000,0010)	LT	TextArbitrary	1-n
@@ -159,7 +157,7 @@
 (0028,0068)	US	RepeatInterval	1
 (0028,0069)	US	BitsGrouped	1
 (0028,0070)	US	PerimeterTable	1-n
-(0028,0071)	US	PerimeterValue	1
+(0028,0071)	US/SS	PerimeterValue	1
 (0028,0080)	US	PredictorRows	1
 (0028,0081)	US	PredictorColumns	1
 (0028,0082)	US	PredictorConstants	1-n
@@ -212,7 +210,7 @@
 (60xx,0803)	AT	OverlayCodeTableLocation	1-n
 (60xx,0804)	US	OverlayBitsForCodeWord	1
 #(7Fxx,0000)	UL	VariablePixelDataGroupLength	1
-#(7Fxx,0010)	OW	VariablePixelData	1
+#(7Fxx,0010)	OW/OB	VariablePixelData	1
 #(7Fxx,0011)	AT	VariableNextDataGroup	1
 #(7Fxx,0020)	OW	VariableCoefficientsSDVN	1-n
 #(7Fxx,0030)	OW	VariableCoefficientsSDHN	1-n
@@ -781,13 +779,13 @@
 (0028,0101)	US	BitsStored	1
 (0028,0102)	US	HighBit	1
 (0028,0103)	US	PixelRepresentation	1
-(0028,0106)	US	SmallestImagePixelValue	1
-(0028,0107)	US	LargestImagePixelValue	1
-(0028,0108)	US	SmallestPixelValueInSeries	1
-(0028,0109)	US	LargestPixelValueInSeries	1
-(0028,0110)	US	SmallestImagePixelValueInPlane	1
-(0028,0111)	US	LargestImagePixelValueInPlane	1
-(0028,0120)	US	PixelPaddingValue	1
+(0028,0106)	US/SS	SmallestImagePixelValue	1
+(0028,0107)	US/SS	LargestImagePixelValue	1
+(0028,0108)	US/SS	SmallestPixelValueInSeries	1
+(0028,0109)	US/SS	LargestPixelValueInSeries	1
+(0028,0110)	US/SS	SmallestImagePixelValueInPlane	1
+(0028,0111)	US/SS	LargestImagePixelValueInPlane	1
+(0028,0120)	US/SS	PixelPaddingValue	1
 (0028,0300)	CS	QualityControlImage	1
 (0028,0301)	CS	BurnedInAnnotation	1
 (0028,1040)	CS	PixelIntensityRelationship	1
@@ -799,9 +797,9 @@
 (0028,1054)	LO	RescaleType	1
 (0028,1055)	LO	WindowCenterWidthExplanation	1-n
 (0028,1090)	CS	RecommendedViewingMode	1
-(0028,1101)	US	RedPaletteColorLookupTableDescriptor	3
-(0028,1102)	US	GreenPaletteColorLookupTableDescriptor	3
-(0028,1103)	US	BluePaletteColorLookupTableDescriptor	3
+(0028,1101)	US/SS	RedPaletteColorLookupTableDescriptor	3
+(0028,1102)	US/SS	GreenPaletteColorLookupTableDescriptor	3
+(0028,1103)	US/SS	BluePaletteColorLookupTableDescriptor	3
 (0028,1199)	UI	PaletteColorLookupTableUID	1
 (0028,1201)	OW	RedPaletteColorLookupTableData	1 
 (0028,1202)	OW	GreenPaletteColorLookupTableData	1 
@@ -813,10 +811,10 @@
 (0028,2110)	CS	LossyImageCompression	1
 (0028,2112)	DS	LossyImageCompressionRatio	1-n
 (0028,3000)	SQ	ModalityLUTSequence	1
-(0028,3002)	US	LUTDescriptor	3
+(0028,3002)	US/SS	LUTDescriptor	3
 (0028,3003)	LO	LUTExplanation	1
 (0028,3004)	LO	ModalityLUTType	1
-(0028,3006)	US	LUTData	1-n
+(0028,3006)	US/SS	LUTData	1-n
 (0028,3010)	SQ	VOILUTSequence	1
 (0028,5000)	SQ	BiPlaneAcquisitionSequence	1
 (0028,6010)	US	RepresentativeFrameNumber	1
@@ -1063,8 +1061,8 @@
 (0060,0000)	UL	HistogramGroupLength	1
 (0060,3000)	SQ	HistogramSequence	1
 (0060,3002)	US	HistogramNumberofBins	1
-(0060,3004)	US	HistogramFirstBinValue	1
-(0060,3006)	US	HistogramLastBinValue	1
+(0060,3004)	US/SS	HistogramFirstBinValue	1
+(0060,3006)	US/SS	HistogramLastBinValue	1
 (0060,3008)	US	HistogramBinWidth	1
 (0060,3010)	LO	HistogramExplanation	1
 (0060,3020)	UL	HistogramData	1-n
@@ -1659,12 +1657,12 @@
 (50xx,2006)	UL	NumberOfSamples	1
 (50xx,2008)	UL	SampleRate	1
 (50xx,200A)	UL	TotalTime	1
-(50xx,200C)	OW	AudioSampleData	1
+(50xx,200C)	OW/OB	AudioSampleData	1
 (50xx,200E)	LT	AudioComments	1
 (50xx,2500)	LO	CurveLabel	1
 (50xx,2600)	SQ	CurveReferencedOverlaySeq	1
 (50xx,2610)	US	ReferencedOverlayGroup	1
-(50xx,3000)	OW	CurveData	1
+(50xx,3000)	OW/OB	CurveData	1
 (60xx,0000)	UL	OverlayGroupLength	1
 (60xx,0010)	US	OverlayRows	1
 (60xx,0011)	US	OverlayColumns	1
@@ -1684,7 +1682,7 @@
 (60xx,1500)	LO	OverlayLabel	1
 (60xx,3000)	OW	OverlayData	1
 (7FE0,0000)	UL	PixelDataGroupLength	1
-(7FE0,0010)	OW	PixelData	1
+(7FE0,0010)	OW/OB	PixelData	1
 (FFFC,FFFC)	OB	DataSetTrailingPadding	1
 (FFFE,E000)	UN	Item	1
 (FFFE,E00D)	UN	ItemDelimitationItem	1
@@ -1694,7 +1692,7 @@
 #
 (0008,1160)	IS	ReferencedFrameNumber	1-n
 (0028,3006)	OW	LUTData	1-n
-(60xx,3000)	OW	OverlayData	1
+(60xx,3000)	OW/OB	OverlayData	1
 (0018,1622)	US	ShutterPresentationValue	1
 (0018,1623)	US	ShutterOverlayGroup	1
 (0028,3110)	SQ	SoftcopyVOILUTSequence	1
@@ -1796,12 +1794,12 @@
 (0040,A195)	SQ	ConceptNameCodeSequenceModifier	1
 (0040,B020)	SQ	AnnotationSequence	1
 (5400,0100)	SQ	WaveformSequence	1
-(5400,0110)	OW	ChannelMinimumValue	1
-(5400,0112)	OW	ChannelMaximumValue	1
+(5400,0110)	OW/OB	ChannelMinimumValue	1
+(5400,0112)	OW/OB	ChannelMaximumValue	1
 (5400,1004)	US	WaveformBitsAllocated	1
 (5400,1006)	CS	WaveformSampleInterpretation	1
-(5400,100A)	OW	WaveformPaddingValue	1
-(5400,1010)	OW	WaveformData	1
+(5400,100A)	OW/OB	WaveformPaddingValue	1
+(5400,1010)	OW/OB	WaveformData	1
 #
 #
 # ------------------------------------------------------------------------ 
