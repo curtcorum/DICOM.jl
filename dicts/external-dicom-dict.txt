@@ -1,1 +1,1 @@
-gems/gems-dicom-dict.txt
+gems/gems-dicom-dict-single-vr.txt
